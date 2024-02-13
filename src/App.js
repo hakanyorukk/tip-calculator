@@ -1,29 +1,29 @@
 import { useState } from "react";
 
 export default function App() {
-  const [tip, setTip] = useState(0);
-  const [per, setPer] = useState(0);
-  const [friendPer, setFriendPer] = useState(0);
+  const [bill, setBill] = useState(0);
+  const [per1, setPer1] = useState(0);
+  const [per2, setPer2] = useState(0);
 
-  const totalPer = per + friendPer;
-  const totalBill = tip + (tip * totalPer) / 100;
+  const totalPer = per1 + per2;
+  const totalTip = bill + (bill * totalPer) / 100;
 
   function handleReset() {
-    setTip(0);
-    setPer(0);
-    setFriendPer(0);
+    setBill(0);
+    setPer1(0);
+    setPer2(0);
   }
 
   return (
     <div>
-      <BillInput tip={tip} onSetTip={setTip} />
-      <SelectPercentage onSetPer={setPer} per={per}>
+      <BillInput bill={bill} onSetBill={setBill} />
+      <SelectPercentage onSetPer={setPer1} per={per1}>
         How did you like the service
       </SelectPercentage>
-      <SelectPercentage onSetPer={setFriendPer} per={friendPer}>
+      <SelectPercentage onSetPer={setPer2} per={per2}>
         How did your friend like the service?:{" "}
       </SelectPercentage>
-      <OutputComponent totalBill={totalBill} totalPer={totalPer} tip={tip}>
+      <OutputComponent totalTip={totalTip} totalPer={totalPer} bill={bill}>
         You pay $
       </OutputComponent>
       <Reset onReset={handleReset} />
@@ -31,7 +31,7 @@ export default function App() {
   );
 }
 
-function BillInput({ text, tip, onSetTip }) {
+function BillInput({ text, bill, onSetBill }) {
   return (
     <div>
       <label>
@@ -39,8 +39,8 @@ function BillInput({ text, tip, onSetTip }) {
         <input
           placeholder="Bill Value"
           type={text}
-          value={tip}
-          onChange={(e) => onSetTip(Number(e.target.value))}
+          value={bill}
+          onChange={(e) => onSetBill(Number(e.target.value))}
         ></input>
       </label>
     </div>
@@ -64,14 +64,14 @@ function SelectPercentage({ per, onSetPer, input, children }) {
   );
 }
 
-function OutputComponent({ children, totalBill, tip, totalPer }) {
+function OutputComponent({ children, totalTip, bill, totalPer }) {
   return (
     <div>
       <h1>
         {children}
-        <span>{totalBill}</span>
+        <span>{totalTip}</span>
         <span>
-          (${tip} + ${totalPer})
+          (${bill} + ${totalPer})
         </span>
       </h1>
     </div>
